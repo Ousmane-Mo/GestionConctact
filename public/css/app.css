@@ -1,0 +1,15 @@
+.contactInfo{
+    min-height: 155px;
+    justify-content: space-evenly;
+}
+.contactPfp{
+    height: auto;
+    max-width: 200px;
+    display: block;
+}
+nav{
+    color: whitesmoke;
+}
+.row{
+    justify-content: center;
+}

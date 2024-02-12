@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% endblock %}
+{% block body %}
+    <h1 class="text-center m-5 p-3">Fiche contact de {{selecContact.name}} {{selecContact.firstName}} </h1>
+    <div class="d-flex justify-content-center">
+        <div class="col-6 text-center">
+            <div class="card mb-3 
+             {% if selecContact.sex == 0 %}
+                border-3 border-info 
+                {% else %}
+                border-3 border-danger
+            {% endif %}
+            ">
+                <h4 class="card-header">{{selecContact.name}} {{ selecContact.firstName}}</h4>
+                <div class="card-body bg-dark">
+                    <img class=" contactPfp mx-auto my-3 rounded-circle" src="{{selecContact.avatar}}" alt="Avatar">
+                </div>
+                <ul class="list-group list-group-flush contactInfo">
+                    <li class="list-group-item">{{selecContact.street}}, {{selecContact.city}}, {{selecContact.zc}}</li>
+                    <li class="list-group-item">{{selecContact.mail}}</li>
+                    {% if selecContact.sex == 0 %}
+                        <li class="list-group-item">
+                            <span class="badge text-bg-info">Man</span>
+                        </li>
+                        {% else %}
+                       <li class="list-group-item">
+                            <span class="badge text-bg-danger">Woman</span>
+                       </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% if selecContact.sex == 0 %}
+                <a href="{{path('contacts')}}" class="btn btn-info text-center w-75"> Retour aux contacts</a>
+            {% else %}
+                <a href="{{path('contacts')}}" class="btn btn-danger text-center w-75"> Retour aux contacts</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
