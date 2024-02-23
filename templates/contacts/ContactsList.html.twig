@@ -8,36 +8,7 @@
     <div class="row">
         {% for contact in contacts %}
             <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
-                <div class="card mb-3 
-                    {% if contact.sex == 0 %}
-                        border-3 border-info 
-                        {% else %}
-                        border-3 border-danger
-                    {% endif %}">
-                    <h4 class="card-header">{{contact.name}} {{ contact.firstName}}</h4>
-                    <div class="card-body bg-dark">
-                        <img class=" contactPfp mx-auto my-3 rounded-circle" src="{{contact.avatar}}" alt="Avatar">
-                    </div>
-                    <ul class="list-group list-group-flush contactInfo">
-                        <li class="list-group-item">{{contact.street}}, {{contact.city}}, {{contact.zc}}</li>
-                        <li class="list-group-item">{{contact.mail}}</li>
-                        {% if contact.sex == 0 %}
-                            <li class="list-group-item">
-                                <span class="badge text-bg-info">Man</span>
-                            </li>
-                        {% else %}
-                            <li class="list-group-item">
-                                <span class="badge text-bg-danger">Woman</span>
-                            </li>
-                        {% endif %}
-                    </ul>
-                    
-                    {% if contact.sex == 0 %}
-                        <a href=" {{path('contact' , {'id': contact.Id} )}} " class="btn btn-info text-center m-2"> Afficher Fiche</a>
-                    {% else %}
-                        <a href=" {{path('contact' , {'id': contact.Id} )}} " class="btn btn-danger text-center m-2"> Afficher Fiche</a>
-                    {% endif %}
-                </div>
+                {{ include('contacts/_ContactCard.html.twig', {'mode': 'ContactsList'}) }}
             </div>
         {% endfor %}
     </div>

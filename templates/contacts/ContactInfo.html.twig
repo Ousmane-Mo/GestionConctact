@@ -1,24 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block title %}{% endblock %}
 {% block body %}
-    <h1 class="text-center m-5 p-3">Fiche contact de {{selecContact.name}} {{selecContact.firstName}} </h1>
+    <h1 class="text-center m-5 p-3">Fiche contact de {{contact.name}} {{contact.firstName}} </h1>
     <div class="d-flex justify-content-center">
         <div class="col-6 text-center">
-            <div class="card mb-3 
-             {% if selecContact.sex == 0 %}
+            {# {{ include('contacts/_ContactCard.html.twig', {'mode': 'ContactInfo'}) }} #}
+             <div class="card mb-3 
+             {% if contact.sex == 0 %}
                 border-3 border-info 
                 {% else %}
                 border-3 border-danger
             {% endif %}
             ">
-                <h4 class="card-header">{{selecContact.name}} {{ selecContact.firstName}}</h4>
+                <h4 class="card-header">{{contact.name}} {{ contact.firstName}}</h4>
                 <div class="card-body bg-dark">
-                    <img class=" contactPfp mx-auto my-3 rounded-circle" src="{{selecContact.avatar}}" alt="Avatar">
+                    <img class=" contactPfp mx-auto my-3 rounded-circle" src="{{contact.avatar}}" alt="Avatar">
                 </div>
                 <ul class="list-group list-group-flush contactInfo">
-                    <li class="list-group-item">{{selecContact.street}}, {{selecContact.city}}, {{selecContact.zc}}</li>
-                    <li class="list-group-item">{{selecContact.mail}}</li>
-                    {% if selecContact.sex == 0 %}
+                    <li class="list-group-item">{{contact.street}}, {{contact.city}}, {{contact.zc}}</li>
+                    <li class="list-group-item">{{contact.mail}}</li>
+                    {% if contact.sex == 0 %}
                         <li class="list-group-item">
                             <span class="badge text-bg-info">Man</span>
                         </li>
@@ -27,14 +28,29 @@
                             <span class="badge text-bg-danger">Woman</span>
                        </li>
                     {% endif %}
+                    {% if contact.categorie.id == 7 %}
+                        <li class="list-group-item">
+                            <a href="{{path('category',{'id': 7})}}"><span class="badge text-bg-success">Privé</span></a>
+                        </li>
+                    {% elseif contact.categorie.id == 6 %}
+                       <li class="list-group-item">
+                           <a href="{{path('category',{'id': 6})}}"><span class="badge text-bg-primary">Sport</span></a>
+                       </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <a href=" {{path('category',{'id': 5})}} "><span class="badge text-bg-warning">Professionnel</span></a>
+                       </li>
+                    {% endif %}
                 </ul>
             </div>
-            {% if selecContact.sex == 0 %}
+            {% if contact.sex == 0 %}
                 <a href="{{path('contacts')}}" class="btn btn-info text-center w-75"> Retour aux contacts</a>
             {% else %}
                 <a href="{{path('contacts')}}" class="btn btn-danger text-center w-75"> Retour aux contacts</a>
             {% endif %}
         </div>
     </div>
+
+   
 {% endblock %}
 

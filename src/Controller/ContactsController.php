@@ -11,26 +11,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactsController extends AbstractController
 {
     /**
-     * @Route("/contacts", name="contacts", methods={'GET'})
+     * @Route("/contacts", name="contacts", methods={"GET"})
      */
     public function ContactsList(ContactsRepository $repo): Response
     {
         $contacts = $repo->findAll();
-        dump($contacts);
         return $this->render('contacts/ContactsList.html.twig', [
             /* 'controller_name' => 'ContactsController', */
             'contacts' => $contacts
         ]);
     }
     /**
-     * @Route("/contact/{id}", name="contact" methods={'GET'})
+     * @Route("/contactsgender/{sex}", name="contactsgender", methods={"GET"})
+     */
+    public function ContactsGender($sex, ContactsRepository $repo): Response
+    {
+        $contacts = $repo->findBy([
+            'sex'=> $sex],
+            ['name'=> 'ASC']
+        );
+        return $this->render('contacts/ContactsList.html.twig', [
+            /* 'controller_name' => 'ContactsController', */
+            'contacts' => $contacts
+        ]);
+    }
+    /**
+     * @Route("/contact/{id}", name="contact", methods={"GET"})
      */
     public function ContactInfos( $id, ContactsRepository $repo): Response
     {
         $contact = $repo->find($id);
         return $this->render('contacts/ContactInfo.html.twig', [
             /* 'controller_name' => 'ContactsController', */
-            'selecContact' => $contact
+            'contact' => $contact
         ]);
     }
 }

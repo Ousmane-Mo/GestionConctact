@@ -1,0 +1,57 @@
+{% block body %}
+
+
+    <div class="card mb-3 
+        {% if contact.sex == 0 %}
+            border-3 border-info 
+        {% else %}
+            border-3 border-danger
+        {% endif %}">
+        <h4 class="card-header">{{contact.name}} {{ contact.firstName}}</h4>
+        <div class="card-body bg-dark">
+            <img class=" contactPfp mx-auto my-3 rounded-circle" src="{{contact.avatar}}" alt="Avatar">
+        </div>
+            <ul class="list-group list-group-flush contactInfo">
+                <li class="list-group-item">{{contact.street}}, {{contact.city}}, {{contact.zc}}</li>
+                <li class="list-group-item">{{contact.mail}}</li>
+                {% if contact.sex == 0 %}
+                    <li class="list-group-item">
+                        <span class="badge text-bg-info">Man</span>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">
+                        <span class="badge text-bg-danger">Woman</span>
+                    </li>
+                {% endif %}
+                {% if contact.categorie.id == 7 %}
+                    <li class="list-group-item">
+                        <a href="{{path('category',{'id': 7})}}"><span class="badge text-bg-success">Privé</span></a>
+                    </li>
+                {% elseif contact.categorie.id == 6 %}
+                    <li class="list-group-item">
+                        <a href="{{path('category',{'id': 6})}}"><span class="badge text-bg-primary">Sport</span></a>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">
+                        <a href=" {{path('category',{'id': 5})}} "><span class="badge text-bg-warning">Professionnel</span></a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if mode =='ContactsList' %}
+            <div class="d-flex justify-content-center">
+                {% if contact.sex == 0 %}
+                    <a href="{{path('contact', {'id':contact.id} )}}" class="btn btn-info text-center w-75 m-2">Afficher Fiche</a>
+                {% else %}
+                    <a href="{{path('contact', {'id':contact.id})}}" class="btn btn-danger text-center w-75 m-2">Afficher Fiche</a>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% if mode =='ContactInfo' %}
+                {% if contact.sex == 0 %}
+                    <a href="{{path('contacts')}}" class="btn btn-info text-center w-75 "> Retour aux contacts</a>
+                {% else %}
+                    <a href="{{path('contacts')}}" class="btn btn-danger text-center w-75"> Retour aux contacts</a>
+                {% endif %}
+            {% endif %}
+        </div>
+{% endblock %}

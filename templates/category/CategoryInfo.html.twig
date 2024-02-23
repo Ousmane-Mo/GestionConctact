@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{category.label}} {% endblock %}
+
+{% block body %}
+
+
+
+    <h1 class="text-center mt-5">Catégorie {{ category.label }}</h1>
+    <div class="d-flex justify-content-center mt-5">
+        <div class="col-6 text-center">
+            <div class="card mb-3">
+                <h4 class="card-header"> {{category.label}} </h4>
+                <div class="card-body bg-dark">
+                    <img class="" src="{{category.image}}" alt="Avatar">
+                </div>
+                <ul class="list-group list-group-flush" >
+                <li class=" list-group-item card-body bg-dark border-top ">
+                    {{ category.description }}
+                </li>
+                <li class="list-group-item">
+                    <a href=" {{path('categories')}} " class="btn btn-info text-center m-2 w-75">Liste des catégorie</a>
+                </li>
+                <li class="list-group-item">
+                    <a href=" {{path('contacts')}} " class="btn btn-info text-center m-2 w-75">Liste des contacts</a>
+                </li>
+                <li class="list-group-item">
+                    <a href=" {{path('contact', {'id' : prevCont})}} " class="btn btn-info text-center m-2 w-75">Retour au dernier Contact</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for contact in contacts %}
+            <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
+                <div class="card mb-3 
+                    {% if contact.sex == 0 %}
+                        border-3 border-info 
+                        {% else %}
+                        border-3 border-danger
+                    {% endif %}">
+                    <h4 class="card-header">{{contact.name}} {{ contact.firstName}}</h4>
+                    <div class="card-body bg-dark">
+                        <img class=" contactPfp mx-auto my-3 rounded-circle" src="{{contact.avatar}}" alt="Avatar">
+                    </div>
+                    <ul class="list-group list-group-flush contactInfo">
+                        <li class="list-group-item">{{contact.street}}, {{contact.city}}, {{contact.zc}}</li>
+                        <li class="list-group-item">{{contact.mail}}</li>
+                        {% if contact.sex == 0 %}
+                            <li class="list-group-item">
+                                <span class="badge text-bg-info">Man</span>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">
+                                <span class="badge text-bg-danger">Woman</span>
+                            </li>
+                        {% endif %}
+                        {% if contact.categorie.id == 7 %}
+                        <li class="list-group-item">
+                            <a href="{{path('category',{'id': 7})}}"><span class="badge text-bg-success">Privé</span></a>
+                        </li>
+                    {% elseif contact.categorie.id == 6 %}
+                       <li class="list-group-item">
+                           <a href="{{path('category',{'id': 6})}}"><span class="badge text-bg-primary">Sport</span></a>
+                       </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <a href=" {{path('category',{'id': 5})}} "><span class="badge text-bg-warning">Professionnel</span></a>
+                       </li>
+                    {% endif %}
+                    </ul>
+                    
+                    {% if contact.sex == 0 %}
+                        <a href=" {{path('contact' , {'id': contact.Id} )}} " class="btn btn-info text-center m-2"> Afficher Fiche</a>
+                    {% else %}
+                        <a href=" {{path('contact' , {'id': contact.Id} )}} " class="btn btn-danger text-center m-2"> Afficher Fiche</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endblock %}

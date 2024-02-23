@@ -26,12 +26,12 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Liste des Contacts</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ path('contacts') }}">Tous les contacts</a>
-                <a class="dropdown-item" href="#">Contact Hommes</a>
-                <a class="dropdown-item" href="#">Contact Femmes</a>
+                <a class="dropdown-item" href="{{path('contactsgender', {'sex':0} )}}">Contact Hommes</a>
+                <a class="dropdown-item" href="{{path('contactsgender', {'sex':1} )}}">Contact Femmes</a>
             </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Listes des catégories</a>
+          <a class="nav-link" href="{{ path('categories') }}">Listes des catégories</a>
         </li>
       </ul>
     </div>
